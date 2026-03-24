@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <title>Gravitação</title>
+    <link rel="icon" href="images/icon_pagina2.webp" type="image/webp">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>    
+  </head>
+
+  <body>
+    <header class="header-hero text-white">
+        <div class="container py-4">
+          <div class="header-content mx-auto text-center">
+            <span class="header-kicker">Plataforma Educacional Interativa</span>
+            <h1 class="display-5 fw-bold mb-2">
+                Simulador de Gravitação Universal
+            </h1>
+            <p class="lead mb-2">
+                Análise do movimento de múltiplos corpos sob interação gravitacional
+            </p>
+            <p class="header-integracao mb-3">
+                Será integrado à plataforma 
+                <strong>SimuFísica</strong> – Ambiente digital de simulações interativas para o ensino de Física
+            </p>
+
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+                <span class="badge bg-light text-dark px-3 py-2">Física Computacional</span>
+                <span class="badge bg-light text-dark px-3 py-2">Three.js</span>
+                <span class="badge bg-light text-dark px-3 py-2">Simulação 3D</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div class="container-fluid">
+
+        <!-- Marca -->
+        <a class="navbar-brand fw-semibold" href="#">
+          Gravitação 3D
+        </a>
+
+        <!-- Botão mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConteudo">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Conteúdo -->
+        <div class="collapse navbar-collapse" id="navbarConteudo">
+
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li class="nav-item">
+              <a class="nav-link active" href="#scene">Simulação</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#sobre">Sobre o Projeto</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#desenvolvedora">Desenvolvedora</a>
+            </li>
+
+            <!-- Dropdown (opcional) -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                Mais
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="https://simufisica.com/" target="_blank">
+                    Plataforma SimuFísica
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+
+          <!-- Botão destaque -->
+          <a href="https://simufisica.com/" target="_blank" class="btn btn-outline-info btn-sm">
+            Acessar SimuFísica
+          </a>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <main class="row g-4 align-items-start">
+
+          <!-------------------- Scene ----------------------->
+          <section class="col-lg-8">
+            <div class="scene-toolbar mb-3"> 
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                    <button type="button" id="start" onclick="pausar()" class="btn btn-primary">
+                        Iniciar Simulação
+                    </button>
+                    <button type="button" id="reset" onclick="reset()" class="btn btn-outline-secondary">
+                        Reiniciar
+                    </button>
+                    <span class="tempo-box">Tempo = <span id="tempo"></span></span>
+              </div>
+            </div>
+              <div class="scene-wrapper">
+                <div id="scene" class="scene"></div>
+              </div>
+          </section>
+
+          <!-------------------- Cards lado esquerdo ----------------------->
+          <aside class="col-lg-4">
+            <div class="panel-configuracao">
+              <div class="panel-header">
+                <h3 class="h5 mb-1">Parâmetros da Simulação</h3>
+                <p class="text-muted mb-0">
+                  Configure massa, posição e velocidade inicial de cada corpo.
+                </p>
+              </div>
+
+              <div class="panel-body">
+                <!-------------------- Parâmetros do Corpo 1 ----------------------->
+                  <div class="card shadow-sm mb-3">
+                      <div class="card-header bg-warning-subtle p-0">
+                          <button
+                              class="card-toggle"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapseCorpo1"
+                              aria-expanded="true"
+                              aria-controls="collapseCorpo1">
+                              <span>Corpo 1 — Parâmetros</span>
+                              <span class="toggle-icon">⌄</span>
+                          </button>
+                      </div>
+
+                      <div id="collapseCorpo1" class="collapse show">
+                          <div class="card-body">
+                              <div class="input-group mb-3">
+                                <span class="input-group-text" id="corpo1_massa">Massa</span>
+                                <input type="text" id="m1" value="2e30" class="form-control" aria-label="Massa do Corpo 1" aria-describedby="corpo1_massa" placeholder="2e30">
+
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_x">x</span>
+                                  <input type="text" id="x1" value="0" class="form-control" aria-label="Posição x do Corpo 1" aria-describedby="corpo1_x" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_y">y</span>
+                                  <input type="text" id="y1" value="0" class="form-control" aria-label="Posição y do Corpo 1" aria-describedby="corpo1_y" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_z">z</span>
+                                  <input type="text" id="z1" value="0" class="form-control" aria-label="Posição z do Corpo 1" aria-describedby="corpo1_z" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_vx">v<sub>x</sub></span>
+                                  <input type="text" id="vx1" value="0" class="form-control" aria-label="Componente Vx do Corpo 1" aria-describedby="corpo1_vx" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_vy">v<sub>y</sub></span>
+                                  <input type="text" id="vy1" value="0" class="form-control" aria-label="Componente Vy do Corpo 1" aria-describedby="corpo1_vy" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo1_vz">v<sub>z</sub></span>
+                                  <input type="text" id="vz1" value="0" class="form-control" aria-label="Componente Vz do Corpo 1" aria-describedby="corpo1_vz" placeholder="0">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                <!-------------------- Parâmetros do Corpo 2 ----------------------->
+                  <div class="card shadow-sm mb-3">
+                      <div class="card-header bg-warning-subtle p-0">
+                          <button
+                              class="card-toggle collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapseCorpo2"
+                              aria-expanded="false"
+                              aria-controls="collapseCorpo2">
+                              <span>Corpo 2 — Parâmetros</span>
+                              <span class="toggle-icon">⌄</span>
+                          </button>
+                      </div>
+
+                      <div id="collapseCorpo2" class="collapse">
+                          <div class="card-body">
+                              <div class="input-group mb-3">
+                                <span class="input-group-text" id="corpo2_massa">Massa</span>
+                                <input type="text" id="m2" value="4.87e24" class="form-control" aria-label="Massa do Corpo 2" aria-describedby="corpo2_massa" placeholder="4.87e24">
+
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_x">x</span>
+                                  <input type="text" id="x2" value="69.8e9" class="form-control" aria-label="Posição x do Corpo 2" aria-describedby="corpo2_x" placeholder="69.8e9">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_y">y</span>
+                                  <input type="text" id="y2" value="0" class="form-control" aria-label="Posição y do Corpo 2" aria-describedby="corpo2_y" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_z">z</span>
+                                  <input type="text" id="z2" value="0" class="form-control" aria-label="Posição z do Corpo 2" aria-describedby="corpo2_z" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_vx">v<sub>x</sub></span>
+                                  <input type="text" id="vx2" value="0" class="form-control" aria-label="Componente Vx do Corpo 2" aria-describedby="corpo2_vx" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_vy">v<sub>y</sub></span>
+                                  <input type="text" id="vy2" value="38.9e3" class="form-control" aria-label="Componente Vy do Corpo 2" aria-describedby="corpo2_vy" placeholder="38.9e3">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo2_vz">v<sub>z</sub></span>
+                                  <input type="text" id="vz2" value="0" class="form-control" aria-label="Componente Vz do Corpo 2" aria-describedby="corpo2_vz" placeholder="0">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                
+                <!-------------------- Parâmetros do Corpo 3 ----------------------->
+                  <div class="card shadow-sm mb-3">
+                      <div class="card-header bg-warning-subtle p-0">
+                          <button
+                              class="card-toggle collapsed"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapseCorpo3"
+                              aria-expanded="false"
+                              aria-controls="collapseCorpo3">
+                              <span>Corpo 3 — Parâmetros</span>
+                              <span class="toggle-icon">⌄</span>
+                          </button>
+                      </div>
+
+                      <div id="collapseCorpo3" class="collapse">
+                          <div class="card-body">
+                              <div class="input-group mb-3">
+                                <span class="input-group-text" id="corpo3_massa">Massa</span>
+                                <input type="text" id="m3" value="6e24" class="form-control" aria-label="Massa do Corpo 3" aria-describedby="corpo3_massa" placeholder="6e24">
+
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_x">x</span>
+                                  <input type="text" id="x3" value="150e9" class="form-control" aria-label="Posição x do Corpo 3" aria-describedby="corpo3_x" placeholder="150e9">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_y">y</span>
+                                  <input type="text" id="y3" value="0" class="form-control" aria-label="Posição y do Corpo 3" aria-describedby="corpo3_y" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_z">z</span>
+                                  <input type="text" id="z3" value="0" class="form-control" aria-label="Posição z do Corpo 3" aria-describedby="corpo3_z" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_vx">v<sub>x</sub></span>
+                                  <input type="text" id="vx3" value="0" class="form-control" aria-label="Componente Vx do Corpo 3" aria-describedby="corpo3_vx" placeholder="0">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_vy">v<sub>y</sub></span>
+                                  <input type="text" id="vy3" value="30e3" class="form-control" aria-label="Componente Vy do Corpo 3" aria-describedby="corpo3_vy" placeholder="30e3">
+                              </div>
+                              <div class="input-group mb-3">
+                                  <span class="input-group-text" id="corpo3_vz">v<sub>z</sub></span>
+                                  <input type="text" id="vz3" value="0" class="form-control" aria-label="Componente Vz do Corpo 3" aria-describedby="corpo3_vz" placeholder="0">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </aside>
+      </main>
+      
+      <section class="info-card" id="sobre">
+          <h3>Sobre o Projeto</h3>
+          <p>
+            Este simulador foi desenvolvido como parte de um Trabalho de Conclusão de Curso, com o objetivo de modelar e visualizar o movimento de múltiplos corpos sob
+            interação gravitacional, utilizando computação gráfica e simulação numérica, sob orientação do Prof. Dr. Marco Polo Moreno de Souza.
+          </p>
+      </section>
+      
+      <section class="info-card" id="desenvolvedora">
+          <h3>Desenvolvedora</h3>
+          <p>
+            <strong>Juciane Gonçalves Maia</strong><br>
+            Licenciatura em Física – Universidade Federal de Rondônia (UNIR)<br>
+            Área de interesse: Física Computacional, Simulações Interativas e Tecnologias Educacionais.
+          </p>
+      </section>
+      
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.126.1/build/three.min.js" integrity="sha256-RhW9lLg3YYVh/c3z+9Q8cUD5GFShsH1f7mR0lvCROpk=" crossorigin="anonymous"></script>
+    <script src="setups/OrbitControls.110.js"></script>
+    <script type="text/javascript" src="gravitacao_universal/setup.js"></script>
+    <script type="text/javascript" src="gravitacao_universal/gravitacao.js"></script>
+    <script type="text/javascript" src="gravitacao_universal/scene.js"></script>
+
+
+    <footer class="footer-academico mt-5" id="rodape">
+      <div class="container py-4 text-center">
+        <p class="mb-1 fw-semibold">Simulador de Gravitação Universal</p>
+        <p class="mb-1">Juciane Gonçalves Maia — Licenciatura em Física — UNIR</p>
+        <p class="mb-1">E-mail: juciane@live.com</p>
+        <p class="mb-1">Trabalho de Conclusão de Curso — 2026</p>
+        <p class="mb-0">
+          Será integrado à plataforma
+          <a href="https://simufisica.com/" target="_blank" class="footer-link">SimuFísica</a>
+        </p>
+      </div>
+    </footer>
+
+  </body>
+</html>
