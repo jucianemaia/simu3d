@@ -19,15 +19,11 @@ function reset() {
 
     document.getElementById("tempo").innerHTML = "&nbsp;0 dias";
 
-    // limpa arrays
-    try {
-        pointsTrajetorias1.length = 0;
-        pointsTrajetorias2.length = 0;
-    } catch (e) {
-        // ainda não foram inicializados → ignora
-    }
+    // limpa arrays das trajetórias
+    pointsTrajetorias1 = [];
+    pointsTrajetorias2 = [];
 
-    // REMOVE TODAS AS LINHAS DA CENA
+    // remove apenas as linhas antigas
     scene.children = scene.children.filter(obj => {
         if (obj.type === "Line") {
             obj.geometry.dispose();
@@ -68,22 +64,9 @@ function parametros() {
     v_z3 = Number(document.getElementById('vz3').value);
 }
 
-const containerSol = document.getElementById('controls_variables_sol');
-containerSol.addEventListener('input', function (e) {
-  if (e.target.matches('input')) {
-    reset();
-  }
-});
+const painelParametros = document.getElementById('painel-parametros');
 
-const containerPlaneta1 = document.getElementById('controls_variables_plan1');
-containerPlaneta1.addEventListener('input', function (e) {
-  if (e.target.matches('input')) {
-    reset();
-  }
-});
-
-const containerPlaneta2 = document.getElementById('controls_variables_plan2');
-containerPlaneta2.addEventListener('input', function (e) {
+painelParametros.addEventListener('input', function (e) {
     if (e.target.matches('input')) {
         reset();
     }

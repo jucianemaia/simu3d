@@ -117,7 +117,7 @@ renderer.setAnimationLoop(() => {
     body3.position.y = y3/fator;
     body3.position.z = z3/fator;
     
-    // ----------- trajetória body1 ---------------
+    // ----------- trajetória body2 ---------------
     pointsTrajetorias1.push( new THREE.Vector3( x2/fator, y2/fator, z2/fator ) );
     const geometryLinha1 = new THREE.BufferGeometry().setFromPoints( pointsTrajetorias1);
     const materialLinha1 = new THREE.LineBasicMaterial({
@@ -127,7 +127,7 @@ renderer.setAnimationLoop(() => {
     scene.add( line1 )
     // ---------------------------------------------
     
-    // ----------- trajetória body2 ---------------
+    // ----------- trajetória body3 ---------------
     pointsTrajetorias2.push( new THREE.Vector3( x3/fator, y3/fator, z3/fator ) );
     const geometryLinha2 = new THREE.BufferGeometry().setFromPoints( pointsTrajetorias2 );
     const materialLinha2 = new THREE.LineBasicMaterial({
