@@ -6,11 +6,35 @@ const physicsConfig = {
 const G = physicsConfig.G;
 let h = physicsConfig.h;
 let t = 0;
+const speedLevels = [1000, 5000, 10000, 50000, 100000];
+let speedIndex = 2; //10000 = velocidade padrão
 
 let v_x1 = 0, v_y1 = 0, v_z1 = 0, v_x2 = 0, v_y2 = 30e3, v_z2 = 0, v_x3 = 0, v_y3 = 38.9e3, v_z3 = 0;
 let x1 = 0, y1 = 0, z1 = 0, x2 = 150e9, y2 = 0, z2 = 0, x3 = 69.8e9, y3 = 0, z3 = 0;
 let k1_x1 = 0, k1_y1 = 0, k1_z1 = 0, k1_x2 = 0, k1_y2 = 0, k1_z2 = 0, k1_x3 = 0, k1_y3 = 0, k1_z3 = 0;
 
+
+function atualizarLabelVelocidade() {
+    const base = physicsConfig.h;
+    const multiplicador = h / base;
+    document.getElementById("speedLabel").textContent = `${multiplicador}x`;
+}
+
+function acelerarSimulacao() {
+    if (speedIndex < speedLevels.length - 1) {
+        speedIndex++;
+        h = speedLevels[speedIndex];
+        atualizarLabelVelocidade();
+    }
+}
+
+function desacelerarSimulacao() {
+    if (speedIndex > 0) {
+        speedIndex--;
+        h = speedLevels[speedIndex];
+        atualizarLabelVelocidade();
+    }
+}
 
 function reset() {
     t = 0;
@@ -65,6 +89,14 @@ document.getElementById("presetSelect").addEventListener("change", (e) => {
     }
 });
 
+document.getElementById("speedUp").addEventListener("click", () => {
+    acelerarSimulacao();
+});
+
+document.getElementById("slowDown").addEventListener("click", () => {
+    desacelerarSimulacao();
+});
+
 
 function parametros() {
     
@@ -101,6 +133,7 @@ painelParametros.addEventListener('input', function (e) {
     }
 });
 
+atualizarLabelVelocidade();
 
 function gravitacaoUniversal() {
 
