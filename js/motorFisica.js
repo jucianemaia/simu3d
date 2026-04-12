@@ -1,12 +1,12 @@
-G = 6.6743e-11;
-m1// = 1.98892e30;  //massa do Sol no SI
-m2// = 5.9742e24;   //massa da Terra no SI
-m3// = 4.86900e24;  //massa de Vênus no SI
-t = 0;
-h = 10000;
-//h = 3600; //Deve funcionar
-//h = 60;  //Testar
-//h = 10000; //SimuFísica
+const physicsConfig = {
+    G: 6.6743e-11,
+    h: 10000
+};
+
+const G = physicsConfig.G;
+let h = physicsConfig.h;
+let t = 0;
+
 let v_x1 = 0, v_y1 = 0, v_z1 = 0, v_x2 = 0, v_y2 = 30e3, v_z2 = 0, v_x3 = 0, v_y3 = 38.9e3, v_z3 = 0;
 let x1 = 0, y1 = 0, z1 = 0, x2 = 150e9, y2 = 0, z2 = 0, x3 = 69.8e9, y3 = 0, z3 = 0;
 let k1_x1 = 0, k1_y1 = 0, k1_z1 = 0, k1_x2 = 0, k1_y2 = 0, k1_z2 = 0, k1_x3 = 0, k1_y3 = 0, k1_z3 = 0;
@@ -19,22 +19,51 @@ function reset() {
 
     document.getElementById("tempo").innerHTML = "&nbsp;0 dias";
 
-    // limpa arrays das trajetórias
-    pointsTrajetorias1 = [];
-    pointsTrajetorias2 = [];
-
-    // remove apenas as linhas antigas
-    scene.children = scene.children.filter(obj => {
-        if (obj.type === "Line") {
-            obj.geometry.dispose();
-            obj.material.dispose();
-            return false;
-        }
-        return true;
-    });
+    if (typeof limparTrilhas === "function") {
+        limparTrilhas();
+    }
 }
 
 reset()
+
+
+const presets = {
+    sistemaSolar: {
+        m1: 2e30, x1: 0, y1: 0, z1: 0, vx1: 0, vy1: 0, vz1: 0,
+        m2: 4.87e24, x2: 69.8e9, y2: 0, z2: 0, vx2: 0, vy2: 38.9e3, vz2: 0,
+        m3: 6e24, x3: 150e9, y3: 0, z3: 0, vx3: 0, vy3: 30e3, vz3: 0
+    },
+
+    doisCorpos: {
+        m1: 2e30, x1: 0, y1: 0, z1: 0, vx1: 0, vy1: 0, vz1: 0,
+        m2: 6e24, x2: 150e9, y2: 0, z2: 0, vx2: 0, vy2: 29.8e3, vz2: 0,
+        m3: 0, x3: 0, y3: 0, z3: 0, vx3: 0, vy3: 0, vz3: 0
+    },
+
+    binario: {
+        m1: 2e30, x1: -50e9, y1: 0, z1: 0, vx1: 0, vy1: -20000, vz1: 0,
+        m2: 2e30, x2: 50e9, y2: 0, z2: 0, vx2: 0, vy2: 20000, vz2: 0,
+        m3: 0, x3: 0, y3: 0, z3: 0, vx3: 0, vy3: 0, vz3: 0
+    }
+};
+
+function aplicarPreset(nomePreset) {
+    const preset = presets[nomePreset];
+    if (!preset) return;
+
+    Object.keys(preset).forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = preset[id];
+    });
+
+    reset();
+}
+
+document.getElementById("presetSelect").addEventListener("change", (e) => {
+    if (e.target.value) {
+        aplicarPreset(e.target.value);
+    }
+});
 
 
 function parametros() {

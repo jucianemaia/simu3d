@@ -96,13 +96,19 @@
           <section class="col-lg-8">
             <div class="scene-toolbar mb-3"> 
               <div class="d-flex flex-wrap align-items-center gap-2">
-                    <button type="button" id="start" onclick="pausar()" class="btn btn-primary">
-                        Iniciar Simulação
-                    </button>
-                    <button type="button" id="reset" onclick="reset()" class="btn btn-outline-secondary">
-                        Reiniciar
-                    </button>
-                    <span class="tempo-box">Tempo = <span id="tempo"></span></span>
+                <select id="presetSelect" class="form-select form-select-sm w-auto">
+                  <option value="">Selecione um preset</option>
+                  <option value="sistemaSolar">Sistema Solar</option>
+                  <option value="doisCorpos">Dois Corpos</option>
+                  <option value="binario">Sistema Binário</option>
+                </select>
+                <button type="button" id="start" class="btn btn-primary">
+                  Iniciar Simulação
+                </button>
+                <button type="button" id="reset" class="btn btn-outline-secondary">
+                  Reiniciar
+                </button>
+                  <span class="tempo-box">Tempo = <span id="tempo"></span></span>                    
               </div>
             </div>
               <div class="scene-wrapper">
@@ -297,10 +303,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.126.1/build/three.min.js" integrity="sha256-RhW9lLg3YYVh/c3z+9Q8cUD5GFShsH1f7mR0lvCROpk=" crossorigin="anonymous"></script>
-    <script src="setups/OrbitControls.110.js"></script>
-    <script type="text/javascript" src="gravitacao_universal/setup.js"></script>
-    <script type="text/javascript" src="gravitacao_universal/gravitacao.js"></script>
-    <script type="text/javascript" src="gravitacao_universal/scene.js"></script>
+    <script src="js/OrbitControls.110.js"></script>
+    <script type="text/javascript" src="js/setup.js"></script>
+    <script type="text/javascript" src="js/motorFisica.js"></script>
+    <script type="text/javascript" src="js/scene.js"></script>
 
 
     <footer class="footer-academico mt-5" id="rodape">
