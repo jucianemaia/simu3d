@@ -13,28 +13,9 @@ let v_x1 = 0, v_y1 = 0, v_z1 = 0, v_x2 = 0, v_y2 = 30e3, v_z2 = 0, v_x3 = 0, v_y
 let x1 = 0, y1 = 0, z1 = 0, x2 = 150e9, y2 = 0, z2 = 0, x3 = 69.8e9, y3 = 0, z3 = 0;
 let k1_x1 = 0, k1_y1 = 0, k1_z1 = 0, k1_x2 = 0, k1_y2 = 0, k1_z2 = 0, k1_x3 = 0, k1_y3 = 0, k1_z3 = 0;
 
-
-function atualizarLabelVelocidade() {
-    const base = physicsConfig.h;
-    const multiplicador = h / base;
-    document.getElementById("speedLabel").textContent = `${multiplicador}x`;
-}
-
-function acelerarSimulacao() {
-    if (speedIndex < speedLevels.length - 1) {
-        speedIndex++;
-        h = speedLevels[speedIndex];
-        atualizarLabelVelocidade();
-    }
-}
-
-function desacelerarSimulacao() {
-    if (speedIndex > 0) {
-        speedIndex--;
-        h = speedLevels[speedIndex];
-        atualizarLabelVelocidade();
-    }
-}
+document.getElementById("speedSelect").addEventListener("change", (e) => {
+    h = Number(e.target.value);
+});
 
 function reset() {
     t = 0;
@@ -46,7 +27,13 @@ function reset() {
     if (typeof limparTrilhas === "function") {
         limparTrilhas();
     }
+
+    const btn = document.getElementById("start");
+    btn.textContent = "▶ Iniciar Simulação";
+    btn.classList.remove("btn-warning");
+    btn.classList.add("btn-primary");
 }
+
 
 reset()
 

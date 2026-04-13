@@ -64,6 +64,13 @@
               <a class="nav-link" href="#desenvolvedora">Desenvolvedora</a>
             </li>
 
+            <select id="presetSelect" class="form-select form-select-sm w-auto">
+                  <option value="">Selecione um preset</option>
+                  <option value="sistemaSolar">Sistema Solar</option>
+                  <option value="doisCorpos">Dois Corpos</option>
+                  <option value="binario">Sistema Binário</option>
+            </select>
+
             <!-- Dropdown (opcional) -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -96,29 +103,30 @@
           <section class="col-lg-8">
             <div class="scene-toolbar mb-3"> 
               <div class="d-flex flex-wrap align-items-center gap-2">
-                <select id="presetSelect" class="form-select form-select-sm w-auto">
-                  <option value="">Selecione um preset</option>
-                  <option value="sistemaSolar">Sistema Solar</option>
-                  <option value="doisCorpos">Dois Corpos</option>
-                  <option value="binario">Sistema Binário</option>
-                </select>
                 <button type="button" id="start" class="btn btn-primary">
                   Iniciar Simulação
                 </button>
                 <button type="button" id="reset" class="btn btn-outline-secondary">
                   Reiniciar
-                </button>
-                <div class="btn-group" role="group" aria-label="Controle de velocidade">
-                  <button type="button" id="slowDown" class="btn btn-outline-secondary">−</button>
-                  <span class="btn btn-light disabled" id="speedLabel">1x</span>
-                  <button type="button" id="speedUp" class="btn btn-outline-secondary">+</button>
-                </div>
-                <span class="tempo-box">Tempo = <span id="tempo"></span></span>                    
+                </button>                  
               </div>
             </div>
-              <div class="scene-wrapper">
-                <div id="scene" class="scene"></div>
+            <div class="scene-wrapper">
+              <div class="scene-time-overlay">
+                Tempo = <span id="tempo"></span>
               </div>
+              <div class="scene-speed-overlay">
+                <label for="speedSelect" class="speed-overlay-label">⚡</label>
+                <select id="speedSelect" class="form-select form-select-sm">
+                  <option value="1000">0.1x</option>
+                  <option value="5000">0.5x</option>
+                  <option value="10000" selected>1x</option>
+                  <option value="50000">5x</option>
+                  <option value="100000">10x</option>
+                </select>
+              </div>
+              <div id="scene" class="scene"></div>
+            </div>
           </section>
 
           <!-------------------- Cards lado esquerdo ----------------------->

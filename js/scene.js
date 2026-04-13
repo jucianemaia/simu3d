@@ -181,13 +181,19 @@ const trailStep = 3;
 
 
 
-function pausar(){
+function pausar() {
     pausou = !pausou;
 
+    const btn = document.getElementById("start");
+
     if (pausou) {
-        console.log("Pausado");
+        btn.textContent = "▶ Iniciar Simulação";
+        btn.classList.remove("btn-warning");
+        btn.classList.add("btn-primary");
     } else {
-        console.log("Executando");
+        btn.textContent = "⏸ Pausar Simulação";
+        btn.classList.remove("btn-primary");
+        btn.classList.add("btn-warning");
     }
 }
 
@@ -254,8 +260,9 @@ renderer.setAnimationLoop(() => {
     body2.visible = m2 !== 0;
     body3.visible = m3 !== 0;
 
-    trail1.visible = m2 !== 0;
-    trail2.visible = m3 !== 0;
+    trail1.visible = m1 !== 0;
+    trail2.visible = m2 !== 0;
+    trail3.visible = m3 !== 0;
 });
 
 let isDragging = false;
