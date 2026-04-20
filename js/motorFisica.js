@@ -76,13 +76,6 @@ document.getElementById("presetSelect").addEventListener("change", (e) => {
     }
 });
 
-document.getElementById("speedUp").addEventListener("click", () => {
-    acelerarSimulacao();
-});
-
-document.getElementById("slowDown").addEventListener("click", () => {
-    desacelerarSimulacao();
-});
 
 
 function parametros() {
@@ -120,7 +113,6 @@ painelParametros.addEventListener('input', function (e) {
     }
 });
 
-atualizarLabelVelocidade();
 
 function gravitacaoUniversal() {
 
